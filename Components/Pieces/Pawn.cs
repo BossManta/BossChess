@@ -1,5 +1,6 @@
 using BossChess.Interfaces;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace BossChess.Components;
@@ -22,6 +23,20 @@ public class Pawn: Piece
 
         IfOnEnemyAt(moves, currentBoard, pos, -1, direction);
         IfOnEnemyAt(moves, currentBoard, pos, 1, direction);
+
+        if (currentBoard.doubleMovePawnPos is not null)
+        {
+            Point enpassPawn = (Point)currentBoard.doubleMovePawnPos;
+            if (enpassPawn.Y == pos.Y)
+            {
+                if (Math.Abs(enpassPawn.X-pos.X)==1)
+                {
+                    IMove enpassMove = MoveFactory.MakeMove(pos, new Point(enpassPawn.X, enpassPawn.Y+direction));
+                    enpassMove.ToRemove = enpassPawn;
+                    moves.Add(enpassMove);
+                }
+            }
+        }
 
         return moves;
     }

@@ -7,7 +7,7 @@ namespace BossChess.Interfaces
     public interface IMove
     {
         public List<(Point from, Point to)> ActualMoves { get; set; }
-        public Point ToRemove { get; set; }
+        public Point? ToRemove { get; set; }
         public List<(Point pos, PieceType ptype)> ToAdd { get; set; }
     }
 }

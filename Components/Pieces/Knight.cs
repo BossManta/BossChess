@@ -10,15 +10,19 @@ public class Knight: Piece
     {
         List<IMove> moves = new List<IMove>();
 
-        //Make this better:
-        IfNotOnFriend(moves, currentBoard, pos, 1, 2);
-        IfNotOnFriend(moves, currentBoard, pos, 1, -2);
-        IfNotOnFriend(moves, currentBoard, pos, -1, 2);
-        IfNotOnFriend(moves, currentBoard, pos, -1, -2);
-        IfNotOnFriend(moves, currentBoard, pos, 2, 1);
-        IfNotOnFriend(moves, currentBoard, pos, 2, -1);
-        IfNotOnFriend(moves, currentBoard, pos, -2, 1);
-        IfNotOnFriend(moves, currentBoard, pos, -2, -1);
+        for (int leftRightSetter=0;leftRightSetter<=1;leftRightSetter++)
+        {
+            int left = leftRightSetter+1;
+            int right = leftRightSetter-2;
+
+            for (int i=-1;i<=1;i+=2)
+            {
+                for (int j=-1;j<=1;j+=2)
+                {
+                    IfNotOnFriend(moves, currentBoard, pos, left*i, right*j);
+                }
+            }
+        }
 
 
 

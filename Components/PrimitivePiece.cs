@@ -8,15 +8,11 @@ public struct PrimitivePiece
     //For pawns and castling pieces (King & Rook)
     public bool HasMoved { get; set; }
 
-    //Only for pawns
-    public bool HasJustDoubleMoved { get; set; }
-
     public PrimitivePiece(PieceType t, bool isWhite)
     {
         Type = t;
         IsWhite = isWhite;
 
         HasMoved = false;
-        HasJustDoubleMoved = false;
     }
 }

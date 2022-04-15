@@ -60,7 +60,7 @@ public class BossChess : Game
         PrimitivePiece pieceAtClick = currentBoard.GetPieceAt(p);
         if (pieceAtClick.Type!=PieceType.None && pieceAtClick.IsWhite==currentBoard.isWhitesTurn)
         {
-            currentMoves = currentBoard.GenerateRawMovesAt(p);
+            currentMoves = currentBoard.GenerateValidMovesAt(p);
         }
         else
         {
@@ -70,6 +70,8 @@ public class BossChess : Game
                 if (moveLoc==p)
                 {
                     currentBoard = currentBoard.GenerateNewBoardWithMove(m);
+                    List<IBoard> possibleBotBoards = currentBoard.GenerateAllValidBoards();
+                    currentBoard = possibleBotBoards[0];
                     currentMoves = new List<IMove>();
                 }
             }

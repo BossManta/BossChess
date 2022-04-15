@@ -4,13 +4,13 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/My Files/MyDotnetProjects/BossChess/Content/Biship.png</File>
-    <File>D:/My Files/MyDotnetProjects/BossChess/Content/King.png</File>
-    <File>D:/My Files/MyDotnetProjects/BossChess/Content/Knight.png</File>
-    <File>D:/My Files/MyDotnetProjects/BossChess/Content/Pawn.png</File>
-    <File>D:/My Files/MyDotnetProjects/BossChess/Content/pixel.png</File>
-    <File>D:/My Files/MyDotnetProjects/BossChess/Content/Queen.png</File>
-    <File>D:/My Files/MyDotnetProjects/BossChess/Content/Rook.png</File>
+    <File>d:/My Files/MyDotnetProjects/BossChess/Content/Biship.png</File>
+    <File>d:/My Files/MyDotnetProjects/BossChess/Content/King.png</File>
+    <File>d:/My Files/MyDotnetProjects/BossChess/Content/Knight.png</File>
+    <File>d:/My Files/MyDotnetProjects/BossChess/Content/Pawn.png</File>
+    <File>d:/My Files/MyDotnetProjects/BossChess/Content/pixel.png</File>
+    <File>d:/My Files/MyDotnetProjects/BossChess/Content/Queen.png</File>
+    <File>d:/My Files/MyDotnetProjects/BossChess/Content/Rook.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

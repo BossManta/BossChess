@@ -6,8 +6,10 @@ namespace BossChess.Interfaces;
 
 public interface IBoard
 {
-    
+
     public bool isWhitesTurn { get; init; }
+
+    public Point? doubleMovePawnPos { get; init; }
 
     /// <summary>
     /// Returns immutable board after move has been made
@@ -16,11 +18,14 @@ public interface IBoard
     /// </summary>
     IBoard GenerateNewBoardWithMove(IMove move);
 
+    List<IBoard> GenerateAllValidBoards();
+
     /// <summary>
     /// Used to generate a move using to points on the board
     /// </summary>
     List<IMove> GenerateValidMovesAt(Point pos);
 
+    List<IMove> GenerateAllRawMoves();
     List<IMove> GenerateRawMovesAt(Point pos);
 
     // <summary>
@@ -34,5 +39,6 @@ public interface IBoard
     // If given point is empty returns true with null piece.
     bool TryGetPieceAt(Point p, out PrimitivePiece piece);
 
+    bool IsPosSafe(bool isWhite, Point pos);
     bool IsKingSafe(bool isWhiteKing);
 }

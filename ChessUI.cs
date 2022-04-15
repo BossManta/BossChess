@@ -80,7 +80,7 @@ public class ChessUI
 
                 PrimitivePiece piece = (PrimitivePiece)p;
                 string pieceName = piece.Type.ToString();
-                Color c = piece.IsWhite?Color.Cyan:Color.Black;
+                Color c = piece.IsWhite?Color.NavajoWhite:Color.Black;
 
                 spriteBatch.Draw(textureManager.GetTexture(pieceName), pixRect, c);
             }
@@ -94,9 +94,9 @@ public class ChessUI
             Rectangle pixRect = new Rectangle(mov.ActualMoves[0].to.X*blockSize, mov.ActualMoves[0].to.Y*blockSize, blockSize, blockSize);
             Color c = new Color()
             {
-                R=255,
+                R=100,
                 G=0,
-                B=0,
+                B=100,
                 A=100
             };
             spriteBatch.Draw(textureManager.GetTexture("Pixel"), pixRect, c);
