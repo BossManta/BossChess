@@ -75,6 +75,7 @@ public class BossChess : Game
                     MinMaxAI ai = new MinMaxAI();
                     ai.Init(currentBoard, 3);
                     currentBoard = currentBoard.GenerateNewBoardWithMove(ai.GetBestMove());
+                    break;
                 }
             }
         }

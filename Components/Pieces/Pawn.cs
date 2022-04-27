@@ -72,9 +72,4 @@ public class Pawn: Piece
 
         return moves;
     }
-
-    public override int GetValue()
-    {
-        return 1;
-    }
 }

@@ -8,8 +8,6 @@ public abstract class Piece
 {
     public abstract List<IMove> GetRawMoves(IBoard currentBoard, Point pos);
 
-    public abstract int GetValue();
-
     protected virtual bool AddIfEmpty(List<IMove> currentMoves, IBoard currentBoard, Point pos, int xOff, int yOff)
     {
         Point toMove = new Point(pos.X+xOff, pos.Y+yOff);
@@ -74,5 +72,28 @@ public abstract class Piece
             return (p.Type==PieceType.None && currentBoard.IsPosSafe(isWhite, pos));
         }
         return false;
+    }
+
+    public static int GetValue(PieceType t)
+    {
+        switch (t)
+        {
+            case PieceType.Pawn:
+                return 1;
+
+            case PieceType.Knight:
+            case PieceType.Biship:
+                return 3;
+            
+            case PieceType.Queen:
+                return 9;
+            
+            case PieceType.King:
+                return 100;
+            
+            case PieceType.None:
+            default:
+                return 0;
+        }
     }
 }

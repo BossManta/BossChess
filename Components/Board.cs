@@ -334,11 +334,11 @@ public record Board : IBoard
                 {
                     if (p.IsWhite)
                     {
-                        val+=plp.PieceDict[p.Type].GetValue();
+                        val += Piece.GetValue(p.Type);
                     }
                     else
                     {
-                        val-=plp.PieceDict[p.Type].GetValue();
+                        val -= Piece.GetValue(p.Type);
                     }
                 }
             }

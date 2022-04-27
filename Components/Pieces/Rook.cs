@@ -29,9 +29,4 @@ public class Rook: Piece
 
         return moves;
     }
-
-    public override int GetValue()
-    {
-        return 5;
-    }
 }

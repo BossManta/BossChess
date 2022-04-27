@@ -53,9 +53,4 @@ public class King: Piece
 
         return moves;
     }
-
-    public override int GetValue()
-    {
-        return 100;
-    }
 }

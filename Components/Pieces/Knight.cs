@@ -28,9 +28,4 @@ public class Knight: Piece
 
         return moves;
     }
-
-    public override int GetValue()
-    {
-        return 3;
-    }
 }
