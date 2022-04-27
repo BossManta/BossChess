@@ -15,19 +15,19 @@ public class Biship: Piece
             for (int j=-1;j<=1;j+=2)
             {
                 int counter = 1;
-                while (IfEmptyAdd(moves, currentBoard, pos, counter*j, counter*i))
+                while (AddIfEmpty(moves, currentBoard, pos, counter*j, counter*i))
                 {
                     counter++;
                 }
-                IfOnEnemyAt(moves, currentBoard, pos, counter*j, counter*i);
+                AddIfOnEnemy(moves, currentBoard, pos, counter*j, counter*i);
             }
         }
 
         return moves;
     }
 
-    public override List<IMove> GetValidMoves(IBoard currentBoard, Point pos)
+    public override int GetValue()
     {
-        throw new System.NotImplementedException();
+        return 3;
     }
 }

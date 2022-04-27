@@ -9,6 +9,8 @@ public record Board : IBoard
 {
     public bool isWhitesTurn { get; init; } = true;
 
+    public Point Size { get; init; }
+
     public Point? doubleMovePawnPos { get; init; } = null;
     private PrimitivePiece[,] PrimitivePieceGrid { get; init; }
 
@@ -21,6 +23,7 @@ public record Board : IBoard
     public Board()
     {
         PrimitivePiece[,] newPieceGrid = new PrimitivePiece[8,8];
+        Size = new Point(8,8);
 
         //Place Pawns
         for (int i=0;i<newPieceGrid.GetLength(0);i++)
@@ -90,6 +93,23 @@ public record Board : IBoard
         }
 
         return boards;
+    }
+
+    public List<IMove> GenerateAllValidMoves()
+    {
+        List<IMove> rawMoves = GenerateAllRawMoves();
+        List<IMove> validMoves = new List<IMove>();
+
+        for (int i=rawMoves.Count-1;i>=0;i--)
+        {
+            IBoard testBoard = GenerateNewBoardWithMove(rawMoves[i]);
+            if (testBoard.IsKingSafe(isWhitesTurn))
+            {
+                validMoves.Add(rawMoves[i]);
+            }
+        }
+
+        return validMoves;
     }
 
     public List<IMove> GenerateRawMovesAt(Point pos)
@@ -200,6 +220,17 @@ public record Board : IBoard
             }
         }
 
+        //King
+        for (int xOff=-1;xOff<=1;xOff++)
+        {
+            for (int yOff=-1;yOff<=1;yOff++)
+            {
+                if (xOff==0 && yOff==0) continue;
+
+                if (CheckIfPieceIsInDangerZone(PieceType.King, isWhite, pos, xOff, yOff)) return false;
+            }
+        }
+
         return true;
     }
 
@@ -259,6 +290,7 @@ public record Board : IBoard
             primGrid[((Point)move.ToRemove).X, ((Point)move.ToRemove).Y] =  new PrimitivePiece();
         }
 
+        //Actual Move logic (Moving pieces)
         foreach (var m in move.ActualMoves)
         {
             primGrid[m.to.X, m.to.Y] = primGrid[m.from.X, m.from.Y];
@@ -266,8 +298,8 @@ public record Board : IBoard
             primGrid[m.from.X, m.from.Y] = new PrimitivePiece();
         }
 
+        //Double Pawn Logic
         Point? doublePawnPos = null;
-
         if (move.ActualMoves.Count>0)
         {
             var m = move.ActualMoves[0];
@@ -278,9 +310,39 @@ public record Board : IBoard
                     doublePawnPos = m.to;
                 }
             }
+        }
 
+        //Add Piece Logic (For Pawn Promo)
+        foreach (var v in move.ToAdd)
+        {
+            primGrid[v.pos.X, v.pos.Y] = new PrimitivePiece(v.ptype, isWhitesTurn);
         }
 
         return new Board(primGrid, !this.isWhitesTurn){ doubleMovePawnPos=doublePawnPos };
+    }
+
+    public int Evaluate()
+    {
+        PieceLogicProvider plp = PieceLogicProvider.GetGlobalInstance();
+        int val = 0;
+        for (int x=0;x<PrimitivePieceGrid.GetLength(0);x++)
+        {
+            for (int y=0;y<PrimitivePieceGrid.GetLength(1);y++)
+            {
+                PrimitivePiece p = PrimitivePieceGrid[x,y];
+                if (p.Type!=PieceType.None)
+                {
+                    if (p.IsWhite)
+                    {
+                        val+=plp.PieceDict[p.Type].GetValue();
+                    }
+                    else
+                    {
+                        val-=plp.PieceDict[p.Type].GetValue();
+                    }
+                }
+            }
+        }
+        return val;
     }
 }

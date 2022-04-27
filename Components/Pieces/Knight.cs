@@ -19,7 +19,7 @@ public class Knight: Piece
             {
                 for (int j=-1;j<=1;j+=2)
                 {
-                    IfNotOnFriend(moves, currentBoard, pos, left*i, right*j);
+                    AddIfNotOnFriend(moves, currentBoard, pos, left*i, right*j);
                 }
             }
         }
@@ -29,8 +29,8 @@ public class Knight: Piece
         return moves;
     }
 
-    public override List<IMove> GetValidMoves(IBoard currentBoard, Point pos)
+    public override int GetValue()
     {
-        throw new System.NotImplementedException();
+        return 3;
     }
 }

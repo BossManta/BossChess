@@ -8,9 +8,9 @@ public abstract class Piece
 {
     public abstract List<IMove> GetRawMoves(IBoard currentBoard, Point pos);
 
-    public abstract List<IMove> GetValidMoves(IBoard currentBoard, Point pos);
+    public abstract int GetValue();
 
-    protected virtual bool IfEmptyAdd(List<IMove> currentMoves, IBoard currentBoard, Point pos, int xOff, int yOff)
+    protected virtual bool AddIfEmpty(List<IMove> currentMoves, IBoard currentBoard, Point pos, int xOff, int yOff)
     {
         Point toMove = new Point(pos.X+xOff, pos.Y+yOff);
         PrimitivePiece p;
@@ -25,7 +25,18 @@ public abstract class Piece
         return false;
     }
 
-    protected virtual bool IfOnEnemyAt(List<IMove> currentMoves, IBoard currentBoard, Point pos, int xOff, int yOff)
+    protected virtual bool CheckIfEmpty(IBoard currentBoard, Point pos, int xOff, int yOff)
+    {
+        Point toMove = new Point(pos.X+xOff, pos.Y+yOff);
+        PrimitivePiece p;
+        if (currentBoard.TryGetPieceAt(toMove, out p))
+        {
+            return (p.Type==PieceType.None);
+        }
+        return false;
+    }
+
+    protected virtual bool AddIfOnEnemy(List<IMove> currentMoves, IBoard currentBoard, Point pos, int xOff, int yOff)
     {
         PrimitivePiece currentPiece = currentBoard.GetPieceAt(pos);
         Point toMove = new Point(pos.X+xOff, pos.Y+yOff);
@@ -40,7 +51,7 @@ public abstract class Piece
         return false;
     }
 
-    protected virtual bool IfNotOnFriend(List<IMove> currentMoves, IBoard currentBoard, Point pos, int xOff, int yOff)
+    protected virtual bool AddIfNotOnFriend(List<IMove> currentMoves, IBoard currentBoard, Point pos, int xOff, int yOff)
     {
         PrimitivePiece currentPiece = currentBoard.GetPieceAt(pos);
         Point toMove = new Point(pos.X+xOff, pos.Y+yOff);

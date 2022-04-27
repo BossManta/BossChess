@@ -12,12 +12,12 @@ public class King: Piece
 
         for (int i=-1;i<=1;i+=2)
         {
-            IfNotOnFriend(moves, currentBoard, pos, 0, i);
-            IfNotOnFriend(moves, currentBoard, pos, i, 0);
+            AddIfNotOnFriend(moves, currentBoard, pos, 0, i);
+            AddIfNotOnFriend(moves, currentBoard, pos, i, 0);
 
             for (int j=-1;j<=1;j+=2)
             {
-                IfNotOnFriend(moves, currentBoard, pos, j, i);
+                AddIfNotOnFriend(moves, currentBoard, pos, j, i);
             }
         }
 
@@ -54,8 +54,8 @@ public class King: Piece
         return moves;
     }
 
-    public override List<IMove> GetValidMoves(IBoard currentBoard, Point pos)
+    public override int GetValue()
     {
-        throw new System.NotImplementedException();
+        return 100;
     }
 }

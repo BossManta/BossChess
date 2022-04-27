@@ -9,6 +9,8 @@ public interface IBoard
 
     public bool isWhitesTurn { get; init; }
 
+    public Point Size { get; init; }
+
     public Point? doubleMovePawnPos { get; init; }
 
     /// <summary>
@@ -19,6 +21,7 @@ public interface IBoard
     IBoard GenerateNewBoardWithMove(IMove move);
 
     List<IBoard> GenerateAllValidBoards();
+    List<IMove> GenerateAllValidMoves();
 
     /// <summary>
     /// Used to generate a move using to points on the board
@@ -38,6 +41,8 @@ public interface IBoard
     // If given point is off the board the method returns false.
     // If given point is empty returns true with null piece.
     bool TryGetPieceAt(Point p, out PrimitivePiece piece);
+
+    int Evaluate();
 
     bool IsPosSafe(bool isWhite, Point pos);
     bool IsKingSafe(bool isWhiteKing);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>d:/My Files/MyDotnetProjects/BossChess/Content/King.png</SourceFile>
+  <SourceFile>D:/My Files/MyDotnetProjects/BossChess/Content/King.png</SourceFile>
   <SourceTime>2018-02-02T15:38:56+02:00</SourceTime>
-  <DestFile>d:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/King.xnb</DestFile>
-  <DestTime>2022-04-15T16:23:33.0376201+02:00</DestTime>
+  <DestFile>D:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/King.xnb</DestFile>
+  <DestTime>2022-04-27T12:44:56.5940054+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

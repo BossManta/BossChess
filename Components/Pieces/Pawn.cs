@@ -15,15 +15,24 @@ public class Pawn: Piece
 
         int direction = currentPiece.IsWhite?-1:1;
 
-        IfEmptyAdd(moves, currentBoard, pos, 0, direction);
+        //Normal move
+        AddIfEmpty(moves, currentBoard, pos, 0, direction);
+
+        //Double first move
         if (!currentPiece.HasMoved)
         {
-            IfEmptyAdd(moves, currentBoard, pos, 0, direction*2);
+            if (CheckIfEmpty(currentBoard, pos, 0, direction))
+            {
+                AddIfEmpty(moves, currentBoard, pos, 0, direction*2);
+            }
         }
 
-        IfOnEnemyAt(moves, currentBoard, pos, -1, direction);
-        IfOnEnemyAt(moves, currentBoard, pos, 1, direction);
+        //Capture moves
+        AddIfOnEnemy(moves, currentBoard, pos, -1, direction);
+        AddIfOnEnemy(moves, currentBoard, pos, 1, direction);
 
+
+        //Enpass
         if (currentBoard.doubleMovePawnPos is not null)
         {
             Point enpassPawn = (Point)currentBoard.doubleMovePawnPos;
@@ -38,11 +47,34 @@ public class Pawn: Piece
             }
         }
 
+        List<IMove> newPromoMoves = new List<IMove>();
+        foreach (IMove m in moves)
+        {
+            int promoYPos = currentPiece.IsWhite?0:7;//currentBoard.Size.Y-5;
+            Point targetPos = m.ActualMoves[0].to;
+
+            if (targetPos.Y==promoYPos)
+            {
+                m.ToAdd.Add((targetPos, PieceType.Queen));
+                
+                PieceType[] possiblePromos = {PieceType.Knight, PieceType.Rook, PieceType.Biship};
+                
+                foreach (PieceType t in possiblePromos)
+                {
+                    IMove newMove = MoveFactory.MakeMove(pos, targetPos);
+                    newMove.ToAdd.Add((targetPos, t));
+                    newPromoMoves.Add(newMove);
+                }
+            }
+        }
+
+        moves.AddRange(newPromoMoves);
+
         return moves;
     }
 
-    public override List<IMove> GetValidMoves(IBoard currentBoard, Point pos)
+    public override int GetValue()
     {
-        throw new System.NotImplementedException();
+        return 1;
     }
 }

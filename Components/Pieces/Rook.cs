@@ -13,25 +13,25 @@ public class Rook: Piece
         for (int i=-1;i<=1;i+=2)
         {
             int counter = 1;
-            while (IfEmptyAdd(moves, currentBoard, pos, 0, counter*i))
+            while (AddIfEmpty(moves, currentBoard, pos, 0, counter*i))
             {
                 counter++;
             }
-            IfOnEnemyAt(moves, currentBoard, pos, 0, counter*i);
+            AddIfOnEnemy(moves, currentBoard, pos, 0, counter*i);
 
             counter = 1;
-            while (IfEmptyAdd(moves, currentBoard, pos, counter*i, 0))
+            while (AddIfEmpty(moves, currentBoard, pos, counter*i, 0))
             {
                 counter++;
             }
-            IfOnEnemyAt(moves, currentBoard, pos, counter*i, 0);
+            AddIfOnEnemy(moves, currentBoard, pos, counter*i, 0);
         }
 
         return moves;
     }
 
-    public override List<IMove> GetValidMoves(IBoard currentBoard, Point pos)
+    public override int GetValue()
     {
-        throw new System.NotImplementedException();
+        return 5;
     }
 }
