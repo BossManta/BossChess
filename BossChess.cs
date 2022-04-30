@@ -18,7 +18,6 @@ public class BossChess : Game
     private Point WindowSize = new Point(800,800);
 
     private TextureManager tm;
-    private Point mousePos;
 
     private ChessUI chessUI;
 
@@ -61,7 +60,7 @@ public class BossChess : Game
         PrimitivePiece pieceAtClick = currentBoard.GetPieceAt(p);
         if (pieceAtClick.Type!=PieceType.None && pieceAtClick.IsWhite==currentBoard.isWhitesTurn)
         {
-            currentMoves = currentBoard.GenerateValidMovesAt(p);
+            currentMoves = BoardGenerator.GenerateValidMovesAt(currentBoard, p);
         }
         else
         {
@@ -70,11 +69,11 @@ public class BossChess : Game
                 Point moveLoc = m.ActualMoves[0].to;
                 if (moveLoc==p)
                 {
-                    currentBoard = currentBoard.GenerateNewBoardWithMove(m);
+                    currentBoard = BoardGenerator.GenerateNewBoardWithMove(currentBoard, m);
                     currentMoves = new List<IMove>();
                     MinMaxAI ai = new MinMaxAI();
                     ai.Init(currentBoard, 3);
-                    currentBoard = currentBoard.GenerateNewBoardWithMove(ai.GetBestMove());
+                    currentBoard = BoardGenerator.GenerateNewBoardWithMove(currentBoard, ai.GetBestMove());
                     break;
                 }
             }

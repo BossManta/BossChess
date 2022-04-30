@@ -21,7 +21,7 @@ public class MinMaxAI
 
     public IMove GetBestMove()
     {
-        IMove bMove = rootBoard.GenerateAllValidMoves()[bestMove];
+        IMove bMove = BoardGenerator.GenerateAllValidMoves(rootBoard)[bestMove];
         return bMove;
     }
 
@@ -32,7 +32,7 @@ public class MinMaxAI
             return board.Evaluate();
         }
 
-        List<IBoard> childBoards = board.GenerateAllValidBoards();
+        List<IBoard> childBoards = BoardGenerator.GenerateAllValidBoards(board);
         int bestIndex = -1;
         int val;
 
@@ -91,7 +91,7 @@ public class MinMaxAI
         //Stack<(IBoard board, TreeNode parent, int depth)> boardFrountier = new Stack<(IBoard, TreeNode, int)>();
         rootNode = new TreeNode();
 
-        List<IBoard> childBoards = rootBoard.GenerateAllValidBoards();
+        List<IBoard> childBoards = BoardGenerator.GenerateAllValidBoards(rootBoard);
 
         int val = int.MaxValue;
         int bestIndex = -1;

@@ -13,23 +13,7 @@ public interface IBoard
 
     public Point? doubleMovePawnPos { get; init; }
 
-    /// <summary>
-    /// Returns immutable board after move has been made
-    ///
-    /// <para>Note: You can generate a move using the GenerateMove() method.</para>
-    /// </summary>
-    IBoard GenerateNewBoardWithMove(IMove move);
-
-    List<IBoard> GenerateAllValidBoards();
-    List<IMove> GenerateAllValidMoves();
-
-    /// <summary>
-    /// Used to generate a move using to points on the board
-    /// </summary>
-    List<IMove> GenerateValidMovesAt(Point pos);
-
-    List<IMove> GenerateAllRawMoves();
-    List<IMove> GenerateRawMovesAt(Point pos);
+    public PrimitivePiece[,] PrimitivePieceGrid { get; init; }
 
     // <summary>
     // Returns primitivePiece from board
