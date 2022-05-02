@@ -4,32 +4,40 @@ using BossChess.Interfaces;
 
 namespace BossChess.Components;
 
-public class GameManager : IGameManager
+public class GameManager
 {
     private IBoard currentBoard;
-    private int depth;
-    private MinMaxAI AI;
 
-    public GameManager(IBoard initialBoardLayout, int aiDepth)
+    private bool isWhitesTurn = true;
+    private AbstractPlayer whitePlayer;
+    private AbstractPlayer blackPlayer;
+
+    public GameManager(AbstractPlayer whitePlayer, AbstractPlayer blackPlayer)
     {
-        currentBoard = initialBoardLayout;
-        depth = aiDepth;
-
-        AI.Init(initialBoardLayout, aiDepth);
+        this.whitePlayer = whitePlayer;
+        this.whitePlayer.SetSubmitMoveAction(this.SubmitMoveAction);
+        
+        this.blackPlayer = blackPlayer;
+        this.blackPlayer.SetSubmitMoveAction(this.SubmitMoveAction);
     }
 
-    public IMove GetBestMove()
+    public void SubmitMoveAction(IMove move)
     {
-        throw new System.NotImplementedException();
+        isWhitesTurn=!isWhitesTurn;
+        currentBoard = BoardGenerator.GenerateNewBoardWithMove(currentBoard, move);
+
+        AuthorizeNextPlayer();
     }
 
-    public List<IMove> GetValidMoves()
+    public void AuthorizeNextPlayer()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void MakeMove(int moveIndex)
-    {
-        throw new System.NotImplementedException();
+        if (isWhitesTurn)
+        {
+            whitePlayer.AuthorizeToMakeMove();
+        }
+        else
+        {
+            blackPlayer.AuthorizeToMakeMove();
+        }
     }
 }
