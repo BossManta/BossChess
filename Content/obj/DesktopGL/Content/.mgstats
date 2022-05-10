@@ -1,8 +1,8 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"d:/My Files/MyDotnetProjects/BossChess/Content/Biship.png","d:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Biship.xnb","TextureProcessor","Texture2DContent",245,685,0,2892445
-"d:/My Files/MyDotnetProjects/BossChess/Content/King.png","d:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/King.xnb","TextureProcessor","Texture2DContent",235,685,0,0182636
-"d:/My Files/MyDotnetProjects/BossChess/Content/Knight.png","d:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Knight.xnb","TextureProcessor","Texture2DContent",239,685,0,0040166
-"d:/My Files/MyDotnetProjects/BossChess/Content/Pawn.png","d:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Pawn.xnb","TextureProcessor","Texture2DContent",215,685,0,0217168
-"d:/My Files/MyDotnetProjects/BossChess/Content/pixel.png","d:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/pixel.xnb","TextureProcessor","Texture2DContent",119,89,0,0366629
-"d:/My Files/MyDotnetProjects/BossChess/Content/Queen.png","d:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Queen.xnb","TextureProcessor","Texture2DContent",233,685,0,1120248
-"d:/My Files/MyDotnetProjects/BossChess/Content/Rook.png","d:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Rook.xnb","TextureProcessor","Texture2DContent",242,685,0,0055757
+"D:/My Files/MyDotnetProjects/BossChess/Content/Biship.png","D:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Biship.xnb","TextureProcessor","Texture2DContent",245,685,0,26918
+"D:/My Files/MyDotnetProjects/BossChess/Content/King.png","D:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/King.xnb","TextureProcessor","Texture2DContent",235,685,0,0083243
+"D:/My Files/MyDotnetProjects/BossChess/Content/Knight.png","D:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Knight.xnb","TextureProcessor","Texture2DContent",239,685,0,0199698
+"D:/My Files/MyDotnetProjects/BossChess/Content/Pawn.png","D:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Pawn.xnb","TextureProcessor","Texture2DContent",215,685,0,0155071
+"D:/My Files/MyDotnetProjects/BossChess/Content/pixel.png","D:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/pixel.xnb","TextureProcessor","Texture2DContent",119,89,0,0055338
+"D:/My Files/MyDotnetProjects/BossChess/Content/Queen.png","D:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Queen.xnb","TextureProcessor","Texture2DContent",233,685,0,0044428
+"D:/My Files/MyDotnetProjects/BossChess/Content/Rook.png","D:/My Files/MyDotnetProjects/BossChess/Content/bin/DesktopGL/Content/Rook.xnb","TextureProcessor","Texture2DContent",242,685,0,0101564
