@@ -9,7 +9,7 @@ public class MinMaxAI
     private IBoard rootBoard;
     private BoardEvaluator boardEvaluator;
     int targetDepth;
-    int bestMove;
+    int bestMoveIndex;
 
     public void Init(IBoard initialBoard, int targetDepth, BoardEvaluator boardEvaluator)
     {
@@ -21,8 +21,9 @@ public class MinMaxAI
     }
 
     public IMove GetBestMove()
-    {
-        IMove bMove = BoardGenerator.GenerateAllValidMoves(rootBoard)[bestMove];
+    {   
+        List<IMove> moves = BoardGenerator.GenerateAllValidMoves(rootBoard);
+        IMove bMove = moves[bestMoveIndex];
         return bMove;
     }
 
@@ -134,6 +135,6 @@ public class MinMaxAI
         }
         System.Console.WriteLine($"Current Strength: {boardEvaluator.GetValue(rootBoard)}");
         System.Console.WriteLine($"Estimated Stength(Lower = better for bot): {val}");
-        bestMove = bestIndex;
+        bestMoveIndex = bestIndex;
     }
 }

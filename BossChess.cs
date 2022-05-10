@@ -15,8 +15,8 @@ public class BossChess : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    private Point WindowSize = new Point(128,128);
-    private bool hasPlayer = true;
+    private Point WindowSize = new Point(512,512);
+    private bool hasPlayer = false;
 
     private TextureManager tm;
 
@@ -24,7 +24,7 @@ public class BossChess : Game
 
     private HumanPlayer humanPlayer = new HumanPlayer();
     
-    private AIPlayer aiPlayer = new AIPlayer();
+    private AIPlayer aiPlayer = new AIPlayer(2);
     private AIPlayer aiPlayer2 = new AIPlayer();
 
     private GameManager gm;

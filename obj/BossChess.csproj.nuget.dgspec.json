@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\My Files\\MyDotnetProjects\\BossChess\\BossChess.csproj": {}
+    "d:\\My Files\\MyDotnetProjects\\BossChess\\BossChess.csproj": {}
   },
   "projects": {
-    "D:\\My Files\\MyDotnetProjects\\BossChess\\BossChess.csproj": {
+    "d:\\My Files\\MyDotnetProjects\\BossChess\\BossChess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\My Files\\MyDotnetProjects\\BossChess\\BossChess.csproj",
+        "projectUniqueName": "d:\\My Files\\MyDotnetProjects\\BossChess\\BossChess.csproj",
         "projectName": "BossChess",
-        "projectPath": "D:\\My Files\\MyDotnetProjects\\BossChess\\BossChess.csproj",
+        "projectPath": "d:\\My Files\\MyDotnetProjects\\BossChess\\BossChess.csproj",
         "packagesPath": "C:\\Users\\bosma\\.nuget\\packages\\",
-        "outputPath": "D:\\My Files\\MyDotnetProjects\\BossChess\\obj\\",
+        "outputPath": "d:\\My Files\\MyDotnetProjects\\BossChess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

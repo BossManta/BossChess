@@ -47,7 +47,7 @@ public class GameManager
 
     public void Update()
     {
-        if (!waitingForMove)
+        if (!waitingForMove && !currentBoard.IsCheckMated(currentBoard.isWhitesTurn))
         {
             AuthorizeNextPlayer();
         }

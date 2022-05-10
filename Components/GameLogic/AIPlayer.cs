@@ -7,11 +7,17 @@ namespace BossChess.Components;
 public class AIPlayer : AbstractPlayer
 {
     private MinMaxAI ai = new MinMaxAI();
+    private int targetDepth;
+
+    public AIPlayer(int targetDepth=4)
+    {
+        this.targetDepth = targetDepth;
+    }
 
     private void MakeMove()
     {
         BoardEvaluator be = new BoardEvaluator();
-        ai.Init(gm.currentBoard, 4, be);
+        ai.Init(gm.currentBoard, targetDepth, be);
         SubmitMove(ai.GetBestMove());
     }
 
