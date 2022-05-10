@@ -6,9 +6,9 @@ namespace BossChess.Components;
 
 public class GameManager
 {
-    private IBoard currentBoard;
+    public IBoard currentBoard { get; private set; }
 
-    private bool isWhitesTurn = true;
+    private bool waitingForMove = false;
     private AbstractPlayer whitePlayer;
     private AbstractPlayer blackPlayer;
 
@@ -16,28 +16,40 @@ public class GameManager
     {
         this.whitePlayer = whitePlayer;
         this.whitePlayer.SetSubmitMoveAction(this.SubmitMoveAction);
+        this.whitePlayer.SetGameManager(this);
         
         this.blackPlayer = blackPlayer;
         this.blackPlayer.SetSubmitMoveAction(this.SubmitMoveAction);
+        this.blackPlayer.SetGameManager(this);
+
+        //Refactor BoardGenerator to generate default starting board
+        currentBoard = new Board();
     }
 
     public void SubmitMoveAction(IMove move)
     {
-        isWhitesTurn=!isWhitesTurn;
         currentBoard = BoardGenerator.GenerateNewBoardWithMove(currentBoard, move);
-
-        AuthorizeNextPlayer();
+        waitingForMove = false;
     }
 
     public void AuthorizeNextPlayer()
     {
-        if (isWhitesTurn)
+        if (currentBoard.isWhitesTurn)
         {
             whitePlayer.AuthorizeToMakeMove();
         }
         else
         {
             blackPlayer.AuthorizeToMakeMove();
+        }
+        waitingForMove = true;
+    }
+
+    public void Update()
+    {
+        if (!waitingForMove)
+        {
+            AuthorizeNextPlayer();
         }
     }
 }

@@ -205,28 +205,40 @@ public record Board : IBoard
         return false;
     }
 
-    public int Evaluate()
+    public bool IsCheckMated(bool isWhite)
     {
-        PieceLogicProvider plp = PieceLogicProvider.GetGlobalInstance();
-        int val = 0;
-        for (int x=0;x<PrimitivePieceGrid.GetLength(0);x++)
+        if (IsKingSafe(isWhite))
         {
-            for (int y=0;y<PrimitivePieceGrid.GetLength(1);y++)
-            {
-                PrimitivePiece p = PrimitivePieceGrid[x,y];
-                if (p.Type!=PieceType.None)
-                {
-                    if (p.IsWhite)
-                    {
-                        val += Piece.GetValue(p.Type);
-                    }
-                    else
-                    {
-                        val -= Piece.GetValue(p.Type);
-                    }
-                }
-            }
+            var possibleMoves = BoardGenerator.GenerateAllValidBoards(this);
+            return possibleMoves.Count==0;
         }
-        return val;
+        return false;
     }
+
+    // public float Evaluate()
+    // {
+    //     PieceLogicProvider plp = PieceLogicProvider.GetGlobalInstance();
+    //     int val = 0;
+    //     for (int x=0;x<PrimitivePieceGrid.GetLength(0);x++)
+    //     {
+    //         for (int y=0;y<PrimitivePieceGrid.GetLength(1);y++)
+    //         {
+    //             PrimitivePiece p = PrimitivePieceGrid[x,y];
+    //             if (p.Type!=PieceType.None)
+    //             {
+    //                 int pVal;
+    //                 if (p.IsWhite)
+    //                 {
+    //                     pVal = Piece.GetValue(p.Type);
+    //                 }
+    //                 else
+    //                 {
+    //                     pVal = -Piece.GetValue(p.Type);
+    //                 }
+    //                 val+=pVal;
+    //             }
+    //         }
+    //     }
+    //     return val;
+    // }
 }

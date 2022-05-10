@@ -15,14 +15,19 @@ public class BossChess : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    private Point WindowSize = new Point(800,800);
+    private Point WindowSize = new Point(128,128);
+    private bool hasPlayer = true;
 
     private TextureManager tm;
 
     private ChessUI chessUI;
 
-    private IBoard currentBoard = new Board();
-    private List<IMove> currentMoves = new List<IMove>();
+    private HumanPlayer humanPlayer = new HumanPlayer();
+    
+    private AIPlayer aiPlayer = new AIPlayer();
+    private AIPlayer aiPlayer2 = new AIPlayer();
+
+    private GameManager gm;
 
     public BossChess()
     {
@@ -38,7 +43,8 @@ public class BossChess : Game
         _graphics.PreferredBackBufferHeight = WindowSize.Y;
         _graphics.ApplyChanges();
 
-
+        gm = new GameManager(hasPlayer?humanPlayer:aiPlayer2, aiPlayer);
+        //gm = new GameManager(aiPlayer, humanPlayer);
 
         base.Initialize();
     }
@@ -50,34 +56,10 @@ public class BossChess : Game
         tm = new TextureManager(_spriteBatch, Content);
         chessUI = new ChessUI(_spriteBatch, tm);
         chessUI.SetUISpace(new Point(0,0), WindowSize.Y);
-        chessUI.AddOnClickEventListner(OnClick);
+
+        chessUI.AddOnClickEventListner(humanPlayer.RegisterClick);
         
         chessUI.LoadRequiredTextures();
-    }
-
-    private void OnClick(Point p)
-    {
-        PrimitivePiece pieceAtClick = currentBoard.GetPieceAt(p);
-        if (pieceAtClick.Type!=PieceType.None && pieceAtClick.IsWhite==currentBoard.isWhitesTurn)
-        {
-            currentMoves = BoardGenerator.GenerateValidMovesAt(currentBoard, p);
-        }
-        else
-        {
-            foreach (IMove m in currentMoves)
-            {
-                Point moveLoc = m.ActualMoves[0].to;
-                if (moveLoc==p)
-                {
-                    currentBoard = BoardGenerator.GenerateNewBoardWithMove(currentBoard, m);
-                    currentMoves = new List<IMove>();
-                    MinMaxAI ai = new MinMaxAI();
-                    ai.Init(currentBoard, 3);
-                    currentBoard = BoardGenerator.GenerateNewBoardWithMove(currentBoard, ai.GetBestMove());
-                    break;
-                }
-            }
-        }
     }
 
     protected override async void Update(GameTime gameTime)
@@ -85,7 +67,9 @@ public class BossChess : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        // gm.AuthorizeNextPlayer();
         chessUI.Update(Mouse.GetState());
+        gm.Update();
 
         base.Update(gameTime);
     }
@@ -96,9 +80,8 @@ public class BossChess : Game
 
         _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
-        chessUI.DrawBoard(currentBoard);
-
-        chessUI.DrawMoves(currentMoves);
+        chessUI.DrawBoard(gm.currentBoard);
+        chessUI.DrawMoves(humanPlayer.currentMoves);     
 
         _spriteBatch.End();
 

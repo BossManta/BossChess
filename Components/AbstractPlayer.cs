@@ -6,16 +6,16 @@ namespace BossChess.Components;
 public abstract class AbstractPlayer
 {
     protected Action<IMove> SubmitMove;
-    protected IBoard currentBoard;
+    protected GameManager gm;
 
     public void SetSubmitMoveAction(Action<IMove> move)
     {
         SubmitMove = move;
     }
 
-    public void SetCurrentBoardReference(ref IBoard currentBoard)
+    public void SetGameManager(GameManager gm)
     {
-        this.currentBoard = currentBoard;
+        this.gm = gm;
     }
 
     public abstract void AuthorizeToMakeMove();

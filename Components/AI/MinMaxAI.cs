@@ -7,14 +7,15 @@ namespace BossChess.Components.AI;
 public class MinMaxAI
 {
     private IBoard rootBoard;
-    private TreeNode rootNode;
+    private BoardEvaluator boardEvaluator;
     int targetDepth;
     int bestMove;
 
-    public void Init(IBoard initialBoard, int targetDepth)
+    public void Init(IBoard initialBoard, int targetDepth, BoardEvaluator boardEvaluator)
     {
         rootBoard = initialBoard;
         this.targetDepth = targetDepth;
+        this.boardEvaluator = boardEvaluator;
 
         InitTree();
     }
@@ -25,25 +26,38 @@ public class MinMaxAI
         return bMove;
     }
 
-    private int RecursiveMinMax(IBoard board, TreeNode parent, int depth, int alpha, int beta)
+    private float RecursiveMinMax(IBoard board, int depth, float alpha, float beta)
     {
         if (depth<=0)
         {
-            return board.Evaluate();
+            return boardEvaluator.GetValue(board);
         }
 
         List<IBoard> childBoards = BoardGenerator.GenerateAllValidBoards(board);
         int bestIndex = -1;
-        int val;
+        float val;
+
+        //Checks for checkmate or stalemate
+        if (childBoards.Count==0)
+        {
+            //Checkmate
+            if (board.IsCheckMated(board.isWhitesTurn))
+            {
+                return board.isWhitesTurn?float.MaxValue:float.MinValue;
+            }
+
+            //Stalemate
+            return 0;
+        }
 
         //Maximizer
         if (board.isWhitesTurn)
         {
-            val = int.MinValue;
+            val = float.MinValue;
 
             for (int i=0;i<childBoards.Count;i++)
             {
-                int eval = RecursiveMinMax(childBoards[i], parent, depth-1, alpha, beta);
+                float eval = RecursiveMinMax(childBoards[i], depth-1, alpha, beta);
                 if (eval>val)
                 {
                     val = eval;
@@ -62,11 +76,11 @@ public class MinMaxAI
         //Minimizer
         else
         {
-            val = int.MaxValue;
+            val = float.MaxValue;
 
             for (int i=0;i<childBoards.Count;i++)
             {
-                int eval = RecursiveMinMax(childBoards[i], parent, depth-1, alpha, beta);
+                float eval = RecursiveMinMax(childBoards[i], depth-1, alpha, beta);
                 if (eval<val)
                 {
                     val = eval;
@@ -87,23 +101,38 @@ public class MinMaxAI
 
     private void InitTree()
     {
-        //This first node is kept out of the while loop to allow for possible future parallelization
-        //Stack<(IBoard board, TreeNode parent, int depth)> boardFrountier = new Stack<(IBoard, TreeNode, int)>();
-        rootNode = new TreeNode();
-
         List<IBoard> childBoards = BoardGenerator.GenerateAllValidBoards(rootBoard);
-
-        int val = int.MaxValue;
-        int bestIndex = -1;
-        for (int i=0;i<childBoards.Count;i++)
+        float val;
+        int bestIndex;
+        if (!rootBoard.isWhitesTurn)
         {
-            int eval = RecursiveMinMax(childBoards[i], rootNode, targetDepth, int.MinValue, int.MaxValue);
-            if (eval<val)
+            val = int.MaxValue;
+            bestIndex = -1;
+            for (int i=0;i<childBoards.Count;i++)
             {
-                val = eval;
-                bestIndex = i;
+                float eval = RecursiveMinMax(childBoards[i], targetDepth-1, int.MinValue, int.MaxValue);
+                if (eval<val)
+                {
+                    val = eval;
+                    bestIndex = i;
+                }
             }
         }
+        else
+        {
+            val = int.MinValue;
+            bestIndex = -1;
+            for (int i=0;i<childBoards.Count;i++)
+            {
+                float eval = RecursiveMinMax(childBoards[i], targetDepth-1, int.MinValue, int.MaxValue);
+                if (eval>val)
+                {
+                    val = eval;
+                    bestIndex = i;
+                }
+            }
+        }
+        System.Console.WriteLine($"Current Strength: {boardEvaluator.GetValue(rootBoard)}");
         System.Console.WriteLine($"Estimated Stength(Lower = better for bot): {val}");
         bestMove = bestIndex;
     }

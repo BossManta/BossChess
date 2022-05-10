@@ -85,12 +85,13 @@ public abstract class Piece
             case PieceType.Biship:
                 return 3;
             
+            case PieceType.Rook:
+                return 5;
+
             case PieceType.Queen:
                 return 9;
             
             case PieceType.King:
-                return 100;
-            
             case PieceType.None:
             default:
                 return 0;

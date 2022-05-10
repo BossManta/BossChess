@@ -26,8 +26,8 @@ public interface IBoard
     // If given point is empty returns true with null piece.
     bool TryGetPieceAt(Point p, out PrimitivePiece piece);
 
-    int Evaluate();
-
     bool IsPosSafe(bool isWhite, Point pos);
     bool IsKingSafe(bool isWhiteKing);
+
+    bool IsCheckMated(bool isWhiteKing);
 }
