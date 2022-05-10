@@ -16,7 +16,7 @@ public class BossChess : Game
     private SpriteBatch _spriteBatch;
 
     private Point WindowSize = new Point(512,512);
-    private bool hasPlayer = false;
+    private bool hasPlayer = true;
 
     private TextureManager tm;
 
